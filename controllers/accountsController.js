@@ -46,7 +46,9 @@ const getAccount = async(req, res = response) => {
 const createAccount = async(req, res = response) => {
 
     const { account_number, pin, client_doc, client_name, client_lastName, balance } = req.body;
-    const account = new Account({ account_number, pin, client_doc, client_name, client_lastName, balance });
+    let date = new Date();
+    const pinDate = date.toLocaleDateString();
+    const account = new Account({ account_number, pin, pinDate, client_doc, client_name, client_lastName, balance });
 
     // pass encrypt
     const salt = bcryptjs.genSaltSync();
@@ -65,11 +67,14 @@ const createAccount = async(req, res = response) => {
 const updateAccount = async(req, res = response) => {
 
     const { id } = req.params;
-    const { _id, pin, ...remainData } = req.body; 
-
+    const { _id, pin, ...remainData } = req.body;
+    
     if( pin ){
         const salt = bcryptjs.genSaltSync();
         remainData.pin = bcryptjs.hashSync( pin, salt );
+        let date = new Date();
+        const pinDate = date.toLocaleDateString();
+        remainData.pinDate = pinDate;
     }
 
     const account = await Account.findByIdAndUpdate( id, remainData, {new: true}/*return the updated account and not the old one*/ );
