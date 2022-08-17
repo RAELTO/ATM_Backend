@@ -27,6 +27,7 @@ router.post('/', [
     check('client_doc', 'The client doccument is required').not().isEmpty(),
     check('client_name', 'The client name is required').not().isEmpty(),
     check('client_lastName', 'The client last name is required').not().isEmpty(),
+    check('balance', 'the balance must be a number').isNumeric(),
     valFields
 ], createAccount);
 

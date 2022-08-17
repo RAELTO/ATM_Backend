@@ -45,12 +45,12 @@ const getAccount = async(req, res = response) => {
 
 const createAccount = async(req, res = response) => {
 
-    const { account_number, pin, client_doc, client_name, client_lastName } = req.body;
-    const account = new Account({ account_number, pin, client_doc, client_name, client_lastName });
+    const { account_number, pin, client_doc, client_name, client_lastName, balance } = req.body;
+    const account = new Account({ account_number, pin, client_doc, client_name, client_lastName, balance });
 
     // pass encrypt
     const salt = bcryptjs.genSaltSync();
-    account.pin = bcryptjs.hashSync( pin, salt );//one way encryption
+    account.pin = bcryptjs.hashSync( pin.toString(), salt );//one way encryption
     
     //save the account in DB
     await account.save();
