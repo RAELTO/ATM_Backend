@@ -16,6 +16,10 @@ const AccountSchema = Schema({
         type: String,
         required: true
     },
+    pinDate: {
+        type: String,
+        required: true
+    },
     client_doc: {
         type: String,
         required: true

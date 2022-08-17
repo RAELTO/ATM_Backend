@@ -21,7 +21,7 @@ const transfer = async(req, res = response) => {
                     
                 const account2 = await Account.findOneAndUpdate( { account_number: acc2.account_number}, 
                     { balance: acc2.balance+amount }, {new: true});
-    
+
                 res.json({
                     msg: `The transfer has been made successfully`,
                     from: account1.account_number,
