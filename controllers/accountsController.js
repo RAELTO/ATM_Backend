@@ -4,7 +4,7 @@ const bcryptjs = require('bcryptjs');
 
 const { Account } = require("../models");
 
-// getProducts - paginated - total
+// get accounts - paginated - total
 const getAccounts = async(req = request, res = response) => {
 
     const { limit = 5, from = 0 } = req.query;

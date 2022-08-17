@@ -11,6 +11,7 @@ class Server {
         
         this.paths = {
             accounts: '/api/v1/accounts',
+            atm: '/api/v1/atm',
         }
 
         //db connection
@@ -43,6 +44,7 @@ class Server {
         });
 
         this.app.use( this.paths.accounts, require('../routes/accounts') );
+        this.app.use( this.paths.atm, require('../routes/atm') );
 
         this.app.get('*', (req, res) => {
             res.status(404).send(`404 | Endpoint: " ${req.url} " not found`);

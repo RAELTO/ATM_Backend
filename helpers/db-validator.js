@@ -1,6 +1,6 @@
 const { Account } = require('../models');
 
-//Validar si un usuario existe en la DB -- validador personalizado
+//Validar si una cuenta existe en la DB por id-- validador personalizado
 const accountExistingId = async(id = '') => {
     
     const accountExisting = await Account.findById(id);
@@ -19,7 +19,18 @@ const accountValidator = async(account_number = '') => {
 
 }
 
+//Validar si una cuenta existe en la DB por numero de cuenta-- validador personalizado
+const accountNumberExists = async(account_number = '') => {
+    
+    const accountExisting = await Account.findOne({ account_number });
+    if ( !accountExisting ){
+        throw new Error(`The account number: ${account_number} was not found`);
+    }
+
+}
+
 module.exports = {
     accountExistingId,
-    accountValidator
+    accountValidator,
+    accountNumberExists,
 }
