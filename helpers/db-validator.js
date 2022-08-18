@@ -10,6 +10,7 @@ const accountExistingId = async(id = '') => {
 
 }
 
+//Validar si un número de cuenta ya está asignada
 const accountValidator = async(account_number = '') => {
     
     const accountExists = await Account.findOne({ account_number });
@@ -29,8 +30,26 @@ const accountNumberExists = async(account_number = '') => {
 
 }
 
+const nonZero = async(amount = '') => {
+    if (amount === 0) {
+        throw new Error(`the amount must be greater than zero`);
+    }
+}
+
+const balanceValidator = async([account_number = '', amount = '']) => {
+    
+    const account = await Account.findOne({ account_number: account_number });
+    
+    if (amount > account.balance) {
+        throw new Error(`Insufficient account balance`);
+    }
+
+}
+
 module.exports = {
     accountExistingId,
     accountValidator,
     accountNumberExists,
+    balanceValidator,
+    nonZero
 }
