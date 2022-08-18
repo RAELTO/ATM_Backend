@@ -37,6 +37,11 @@ const AccountSchema = Schema({
         default: 0,
         required: true
     },
+    attempts:{
+        type:Number,
+        default: 0,
+        required: true
+    }
 
 });
 

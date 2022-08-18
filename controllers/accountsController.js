@@ -47,8 +47,12 @@ const createAccount = async(req, res = response) => {
 
     const { account_number, pin, client_doc, client_name, client_lastName, balance } = req.body;
     let date = new Date();
-    const pinDate = date.toLocaleDateString();
-    const account = new Account({ account_number, pin, pinDate, client_doc, client_name, client_lastName, balance });
+    const opciones = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const pinDate = date.toLocaleDateString('en-us', opciones);
+       
+   
+    let attempts = 0;
+    const account = new Account({ account_number, pin, pinDate, client_doc, client_name, client_lastName, balance, attempts });
 
     // pass encrypt
     const salt = bcryptjs.genSaltSync();
@@ -73,7 +77,9 @@ const updateAccount = async(req, res = response) => {
         const salt = bcryptjs.genSaltSync();
         remainData.pin = bcryptjs.hashSync( pin, salt );
         let date = new Date();
-        const pinDate = date.toLocaleDateString();
+        const opciones = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        const pinDate = date.toLocaleDateString('en-us', opciones);
+       
         remainData.pinDate = pinDate;
     }
 

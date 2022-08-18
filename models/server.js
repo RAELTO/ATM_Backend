@@ -12,6 +12,7 @@ class Server {
         this.paths = {
             accounts: '/api/v1/accounts',
             atm: '/api/v1/atm',
+            auth: '/api/v1/auth',
         }
 
         //db connection
@@ -43,6 +44,7 @@ class Server {
             res.send('Hello from ATM API');
         });
 
+        this.app.use( this.paths.auth, require('../routes/auth') );
         this.app.use( this.paths.accounts, require('../routes/accounts') );
         this.app.use( this.paths.atm, require('../routes/atm') );
 
